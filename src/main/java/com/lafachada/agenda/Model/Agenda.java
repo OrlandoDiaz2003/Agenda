@@ -1,5 +1,7 @@
 package com.lafachada.agenda.Model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -23,8 +25,14 @@ public class Agenda {
     @Column(name = "id_propiedad", nullable = false)
     private Integer idPropiedad;
 
-    @Column(name = "id_usuario", nullable = false)
-    private Integer idUsuario;
+    @Column(name = "id_vendedor", nullable = false)
+    private Integer idVendedor;
+
+    @Column(name = "id_cliente", nullable = false)
+    private Integer idCliente;
+
+    @Column(name = "fecha", nullable = false)
+    private LocalDate fecha;
 
     @ManyToOne
     @JoinColumn(name = "id_estado_cita", nullable = false)
