@@ -1,0 +1,33 @@
+package com.lafachada.agenda.Model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "agenda")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Agenda {
+    @Id
+    @Column(name = "id_agenda")
+    private Integer idAgenda;
+
+    @Column(name = "id_propiedad", nullable = false)
+    private Integer idPropiedad;
+
+    @Column(name = "id_usuario", nullable = false)
+    private Integer idUsuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_estado_cita", nullable = false)
+    private EstadoCita estadoCita;
+
+}
