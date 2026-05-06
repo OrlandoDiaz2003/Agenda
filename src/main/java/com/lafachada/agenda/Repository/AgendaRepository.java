@@ -7,4 +7,5 @@ import com.lafachada.agenda.Model.Agenda;
 
 public interface AgendaRepository extends JpaRepository <Agenda, Integer>{
     List<Agenda> findByIdCliente(Integer idCliente);
+    List<Agenda> findByIdVendedor(Integer idVendedor);
 }

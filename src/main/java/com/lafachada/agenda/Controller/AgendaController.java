@@ -25,6 +25,12 @@ public class AgendaController {
         return ResponseEntity.ok(agendas);
     }
 
+    @GetMapping("/buscarPorIdVendedor/{id}")
+    public ResponseEntity<List<AgendaRespuestaDto>> buscarPorIdVendedor(@PathVariable Integer id) {
+        List<AgendaRespuestaDto> agendas = agendaService.buscarPorIdVendedor(id);
+        return ResponseEntity.ok(agendas);
+    }
+
     @DeleteMapping("/eliminarPorId/{id}")
     public ResponseEntity<Void> eliminarPorId(@PathVariable Integer id) {
         agendaService.eliminarPorId(id);
