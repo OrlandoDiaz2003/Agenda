@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.lafachada.agenda.Dto.AgendaRespuestaDto;
 import com.lafachada.agenda.Repository.AgendaRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class AgendaService {
 
@@ -18,4 +20,10 @@ public class AgendaService {
         return agendaRepository.findByIdCliente(id).stream().map(AgendaRespuestaDto::new).toList();
     }
 
+    public void eliminarPorId(Integer id) {
+        if(!agendaRepository.existsById(id)) {
+            throw new EntityNotFoundException("No se ha encontrada una agenda con id " + id);
+        }
+        agendaRepository.deleteById(id);
+    }
 }
