@@ -16,7 +16,7 @@ public class AgendaRespuestaDto {
     public AgendaRespuestaDto(Agenda agenda) {
         this.idVendedor  = agenda.getIdVendedor();
         this.idCliente   = agenda.getIdCliente();
-        this.idPropiedad = agenda.getIdPropiedad();
+        this.idPropiedad = agenda.getPropiedadId();
         this.fecha       = agenda.getFecha();
         this.estadoCita  = agenda.getEstadoCita().getEstado();
     }
