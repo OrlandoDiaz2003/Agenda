@@ -20,13 +20,18 @@ import jakarta.transaction.Transactional;
 @Service
 public class AgendaService {
 
-    @Autowired
     private AgendaRepository agendaRepository;
-
-    @Autowired
     private PropiedadClient propiedadClient;
-    @Autowired
     private EstadoCitaRepository estadoCitaRepository;
+
+    public AgendaService(AgendaRepository agendaRepository, PropiedadClient propiedadClient,
+            EstadoCitaRepository estadoCitaRepository) {
+        this.agendaRepository = agendaRepository;
+        this.propiedadClient = propiedadClient;
+        this.estadoCitaRepository = estadoCitaRepository;
+    }
+
+    private static final Integer PENDIENTE = 3;
 
     public List<AgendaRespuestaDto> buscarPorIdCliente(Integer id) {
         return agendaRepository.findByIdCliente(id).stream().map(AgendaRespuestaDto::new).toList();
@@ -46,7 +51,6 @@ public class AgendaService {
     @Transactional
     public AgendaRespuestaDto crearCita(AgendaSolicitudDto dto) {
         PropiedadDto propiedad = propiedadClient.obtenerPorId(dto.getPropiedadId());
-
         if (propiedad == null) {
             throw new EntityNotFoundException("La propiedad no se ha encontrado");
         }
@@ -60,7 +64,7 @@ public class AgendaService {
         nuevaAgenda.setFecha(dto.getFecha());
         nuevaAgenda.setPropiedadId(propiedad.getPropiedadId());
 
-        EstadoCita estadoInicial = estadoCitaRepository.findById(3)
+        EstadoCita estadoInicial = estadoCitaRepository.findById(PENDIENTE)
                 .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado cita con id 3"));
         nuevaAgenda.setEstadoCita(estadoInicial);
         return new AgendaRespuestaDto(agendaRepository.save(nuevaAgenda));

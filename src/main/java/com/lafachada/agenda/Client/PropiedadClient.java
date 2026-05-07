@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.lafachada.agenda.Dto.PropiedadDto;
 
-@FeignClient(name = "propiedad-service", url = "localhost:8081/api/v0/propiedad")
+@FeignClient(name = "propiedad-service", url = "${services.propiedad.url:http://localhost:8081/api/v0/propiedad}")
 public interface PropiedadClient {
 
     @GetMapping("/obtenerPorId/{id}")
