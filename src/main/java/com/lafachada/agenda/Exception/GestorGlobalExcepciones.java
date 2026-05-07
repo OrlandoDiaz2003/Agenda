@@ -1,6 +1,7 @@
 package com.lafachada.agenda.Exception;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class GestorGlobalExcepciones {
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> manejarEntidadNoEncontrada(EntityNotFoundException ex) {
         Map<String, Object> cuerpo = new LinkedHashMap<>();
-        cuerpo.put("fecha", LocalDate.now());
+        cuerpo.put("fecha", LocalDateTime.now());
         cuerpo.put("estado", HttpStatus.NOT_FOUND);
         cuerpo.put("error", ex.getMessage());
         return new ResponseEntity<>(cuerpo, HttpStatus.NOT_FOUND);
