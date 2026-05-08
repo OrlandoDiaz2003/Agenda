@@ -27,7 +27,7 @@ public class AgendaController {
         this.agendaService = agendaService;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<AgendaRespuestaDto> crearAgenda(@Valid @RequestBody AgendaSolicitudDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(agendaService.crearCita(dto));
     }
