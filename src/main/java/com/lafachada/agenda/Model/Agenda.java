@@ -25,8 +25,8 @@ public class Agenda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAgenda;
 
-    @Column(name = "id_propiedad", nullable = false)
-    private Integer propiedadId;
+    @Column(name = "id_publicacion", nullable = false)
+    private Integer idPublicacion;
 
     @Column(name = "id_vendedor", nullable = false)
     private Integer idVendedor;
@@ -36,6 +36,12 @@ public class Agenda {
 
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
+
+    @Column(name = "cliente_mensaje", nullable = true)
+    private String clienteMensaje;
+
+    @Column(name = "vendedor_mensaje", nullable =  true)
+    private String vendedorMensaje;
 
     @ManyToOne
     @JoinColumn(name = "id_estado_cita", nullable = false)

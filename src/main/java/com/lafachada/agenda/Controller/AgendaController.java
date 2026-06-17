@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lafachada.agenda.Dto.AgendaRespuestaDto;
@@ -21,7 +23,7 @@ import jakarta.validation.Valid;
 @RequestMapping("api/v0/agenda")
 public class AgendaController {
 
-    private AgendaService agendaService;
+    private final AgendaService agendaService;
 
     public AgendaController(AgendaService agendaService) {
         this.agendaService = agendaService;
@@ -38,6 +40,12 @@ public class AgendaController {
         return ResponseEntity.ok(agendas);
     }
 
+    @GetMapping("/cliente/{id}/publicaciones-pendientes")
+    public ResponseEntity<List<Integer>> publicacionIdAgendas(@PathVariable Integer id) {
+        List<Integer> ids = agendaService.publicacionIdAgendas(id);
+        return ResponseEntity.ok(ids);
+    }
+
     @GetMapping("/vendedor/{id}")
     public ResponseEntity<List<AgendaRespuestaDto>> buscarPorIdVendedor(@PathVariable Integer id) {
         List<AgendaRespuestaDto> agendas = agendaService.buscarPorIdVendedor(id);
@@ -48,5 +56,12 @@ public class AgendaController {
     public ResponseEntity<Void> eliminarPorId(@PathVariable Integer id) {
         agendaService.eliminarPorId(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/estado")
+    public ResponseEntity<AgendaRespuestaDto> cambiarEstado(@PathVariable Integer id, @RequestParam String estado,
+            @RequestParam(required = false) String respuesta) {
+        AgendaRespuestaDto respuestaDto = agendaService.cambiarEstadoCita(id, estado, respuesta);
+        return ResponseEntity.ok(respuestaDto);
     }
 }

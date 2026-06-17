@@ -3,7 +3,7 @@ package com.lafachada.agenda.Dto;
 import lombok.Data;
 
 @Data
-public class PropiedadDto {
-    private Integer propiedadId;
+public class PublicacionDto {
+    private Integer idPublicacion;
     private String estado;
 }

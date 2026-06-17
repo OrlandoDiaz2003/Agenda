@@ -29,7 +29,7 @@ public class GestorGlobalExcepciones {
 
         int status = ex.status() != -1 ? ex.status() : 500;
         if (cuerpoError == null || cuerpoError.isEmpty()) {
-            cuerpoError = "{\"error\": \"Error de comunicación con el servicio externo\"}";
+            cuerpoError = "{\"error\": \"Error de comunicación con el servicio externo\"}" + ex.getMessage();
         }
         return ResponseEntity
                 .status(status)

@@ -1,0 +1,45 @@
+services:
+  mariadb-agenda-db:
+    image: mariadb:latest
+    container_name: mariadb-agenda
+    restart: always
+    environment:
+      MARIADB_DATABASE: agenda_test
+      MARIADB_USER: agenda_user_test
+      MARIADB_PASSWORD: 1234
+      MARIADB_ROOT_PASSWORD: 1234
+    ports:
+      - "3310:3306"
+    volumes:
+      - mariadb_agenda_data:/var/lib/mysql
+    networks:
+     - lafachada-network
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  agenda-service:
+    build: .
+    container_name: microservicio-agenda
+    restart: always
+    depends_on:
+      mariadb-agenda-db:
+        condition: service_healthy
+    environment:
+     - DB_HOST=mariadb-agenda
+     - DB_PORT=3306
+     - DB_NAME=agenda_test
+     - DB_USER=agenda_user_test
+     - DB_PASSWORD=1234
+    ports:
+     - "8082:8082"
+    networks:
+     - lafachada-network
+volumes:
+  mariadb_agenda_data:
+
+networks:
+  lafachada-network:
+    external: true
