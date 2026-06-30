@@ -4,8 +4,10 @@ import java.time.LocalDate;
 
 import com.lafachada.agenda.Model.Agenda;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class AgendaRespuestaDto {
     private Integer IdAgenda;
     private Integer idVendedor;
